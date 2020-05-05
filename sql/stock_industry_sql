@@ -1,0 +1,34 @@
+-- Create table
+create table STOCK_INDUSTRY
+(
+  code                    varchar2(10) not null,
+  update_date             varchar2(10),
+  code_name               varchar2(50),
+  industry                varchar2(20),
+  industry_classification varchar2(50)
+)
+tablespace USERS
+  storage
+  (
+    initial 64K
+    minextents 1
+    maxextents unlimited
+  );
+-- Add comments to the table
+comment on table STOCK_INDUSTRY
+  is '证券行业分类';
+-- Add comments to the columns
+comment on column STOCK_INDUSTRY.code
+  is '证券代码';
+comment on column STOCK_INDUSTRY.update_date
+  is '更新日期';
+comment on column STOCK_INDUSTRY.code_name
+  is '证券名称';
+comment on column STOCK_INDUSTRY.industry
+  is '所属行业';
+comment on column STOCK_INDUSTRY.industry_classification
+  is '所属行业类别
+';
+-- Create/Recreate primary, unique and foreign key constraints
+alter table STOCK_INDUSTRY
+  add constraint stock_industry_code primary key (CODE);

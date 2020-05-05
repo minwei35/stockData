@@ -1,0 +1,35 @@
+-- Create table
+create table STOCK_BASIC
+(
+  code      VARCHAR2(10) not null,
+  code_name VARCHAR2(50),
+  ipodate   VARCHAR2(10),
+  outdate   VARCHAR2(10),
+  type      NUMBER(1),
+  status    NUMBER(1)
+);
+-- Add comments to the table
+comment on table STOCK_BASIC
+  is '证券基本资料表';
+-- Add comments to the columns
+comment on column STOCK_BASIC.code
+  is '证券代码';
+comment on column STOCK_BASIC.code_name
+  is '证券名称';
+comment on column STOCK_BASIC.ipodate
+  is '上市时间';
+comment on column STOCK_BASIC.outdate
+  is '退市时间';
+comment on column STOCK_BASIC.type
+  is '证券类型，其中1：股票，2：指数,3：其它
+';
+comment on column STOCK_BASIC.status
+  is '上市状态，其中1：上市，0：退市
+';
+-- Create/Recreate primary, unique and foreign key constraints
+alter table STOCK_BASIC
+  add constraint STOCK_BASIC_CODE primary key (CODE)
+  using index
+  pctfree 10
+  initrans 2
+  maxtrans 255;
