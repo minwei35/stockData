@@ -1,37 +1,10 @@
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, String, Float
-import utils.TushareValueUtils as tv
+import utils.transferValueUtils as tv
 __author__ = 'Jeremysan'
 
 Base = declarative_base()
 
-
-class StockBasic(Base):
-    __tablename__ = 'stock_basic'
-
-    # 证券代码
-    code = Column(String, primary_key=True)
-    # 证券名称
-    code_name = Column(String)
-    # 上市日期
-    ipodate = Column(String)
-    # 退市日期
-    outdate = Column(String)
-    # 证券类型，其中1：股票，2：指数,3：其它
-    type = Column(String)
-    # 上市状态，其中1：上市，0：退市
-    status = Column(String)
-
-    @staticmethod
-    def tranfer(row):
-        stock_info = StockBasic()
-        stock_info.code = row[0]
-        stock_info.code_name = row[1]
-        stock_info.ipoDate = row[2]
-        stock_info.outDate = row[3]
-        stock_info.type = row[4]
-        stock_info.status = row[5]
-        return stock_info
 
 class StockMarket(Base):
     # 表名
@@ -261,30 +234,6 @@ class StockConcept(Base):
         stock_concept.src = tv.get_string(row.src)
         return stock_concept
 
-
-class StockIndustry(Base):
-    __tablename__ = 'stock_industry'
-
-    # 证券代码
-    code = Column(String, primary_key=True)
-    # 证券名称
-    code_name = Column(String)
-    # 更新日期
-    update_date = Column(String)
-    # 所属行业
-    industry = Column(String)
-    # 所属行业类别
-    industry_classification = Column(String)
-
-    @staticmethod
-    def transfer(row):
-        stock_industry = StockIndustry()
-        stock_industry.update_date = row[0]
-        stock_industry.code = row[1]
-        stock_industry.code_name = row[2]
-        stock_industry.industry = row[3]
-        stock_industry.industry_classification = row[4]
-        return stock_industry
 
 
 class StockConceptDetails(Base):

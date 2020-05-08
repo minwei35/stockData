@@ -1,4 +1,4 @@
-from mapper.pojo import StockIndustry
+from mapper.stock import StockIndustry
 from database import sqlUtils
 import baostock as bs
 import pandas as pd

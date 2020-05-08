@@ -1,0 +1,66 @@
+-- Create table
+create table STOCK_K_DATA
+(
+  trade_date        varchar2(10),
+  code        varchar2(10) not null,
+  open        number(14,4),
+  high        number(14,4),
+  low         number(14,4),
+  close       number(14,4),
+  preclose    number(14,4),
+  volume      number(14),
+  amount      number(25,4),
+  adjustflag  number(1),
+  turn        number(14,6),
+  tradestatus number(1),
+  pctchg      number(14,6),
+  pettm       number(14,6),
+  psttm       number(14,6),
+  pcfncfttm   number(14,6),
+  pbmrq       number(14,6),
+  isst        number(1)
+);
+-- Add comments to the table
+comment on table STOCK_K_DATA
+  is 'A股K线数据表';
+-- Add comments to the columns
+comment on column STOCK_K_DATA.trade_date
+  is '交易所行情日期';
+comment on column STOCK_K_DATA.code
+  is '证券代码';
+comment on column STOCK_K_DATA.open
+  is '开盘价 精度：小数点后4位；单位：人民币元';
+comment on column STOCK_K_DATA.high
+  is '最高价 精度：小数点后4位；单位：人民币元';
+comment on column STOCK_K_DATA.low
+  is '最低价 精度：小数点后4位；单位：人民币元';
+comment on column STOCK_K_DATA.close
+  is '收盘价 精度：小数点后4位；单位：人民币元';
+comment on column STOCK_K_DATA.preclose
+  is '昨收盘价 精度：小数点后4位；单位：人民币元';
+comment on column STOCK_K_DATA.volume
+  is '成交数量 单位：股
+';
+comment on column STOCK_K_DATA.amount
+  is '成交金额 精度：小数点后4位；单位：人民币元';
+comment on column STOCK_K_DATA.adjustflag
+  is '复权状态(1：后复权， 2：前复权，3：不复权）	';
+comment on column STOCK_K_DATA.turn
+  is '换手率 精度：小数点后6位；单位：%
+';
+comment on column STOCK_K_DATA.tradestatus
+  is '交易状态	1：正常交易 0：停牌';
+comment on column STOCK_K_DATA.pctchg
+  is '涨跌幅（百分比）	精度：小数点后6位';
+comment on column STOCK_K_DATA.pettm
+  is '滚动市盈率	精度：小数点后6位';
+comment on column STOCK_K_DATA.psttm
+  is '滚动市销率	精度：小数点后6位';
+comment on column STOCK_K_DATA.pcfncfttm
+  is '滚动市现率	精度：小数点后6位';
+comment on column STOCK_K_DATA.pbmrq
+  is '市净率	精度：小数点后6位';
+comment on column STOCK_K_DATA.isst
+  is '	是否ST	1是，0否';
+-- Create/Recreate indexes
+create index stock_k_data_code on STOCK_K_DATA (code);

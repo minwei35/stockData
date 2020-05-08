@@ -20,3 +20,19 @@ def get_float(value):
         return result
     except ValueError or TypeError:
         return None
+
+
+def get_attr_string(class_name, class_attr):
+    try:
+        value = getattr(class_name, class_attr)
+        return get_string(value)
+    except AttributeError:
+        return None
+
+
+def get_attr_float(class_name, class_attr):
+    try:
+        value = getattr(class_name, class_attr)
+        return get_float(value)
+    except AttributeError:
+        return None

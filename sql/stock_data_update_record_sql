@@ -1,0 +1,21 @@
+-- Create table
+create table STOCK_DATA_UPDATE_RECORD
+(
+  code                    VARCHAR2(10) not null,
+  update_daily_basic_date VARCHAR2(10),
+  is_list                 NUMBER(1)
+);
+-- Add comments to the columns
+comment on column STOCK_DATA_UPDATE_RECORD.code
+  is '证券代码';
+comment on column STOCK_DATA_UPDATE_RECORD.update_daily_basic_date
+  is '更新日期';
+comment on column STOCK_DATA_UPDATE_RECORD.is_list
+  is '是否上市（0：否 1：是）';
+-- Create/Recreate primary, unique and foreign key constraints
+alter table STOCK_DATA_UPDATE_RECORD
+  add constraint STOCK_DATA_UPDATE_RECORD_CODE primary key (CODE)
+  using index
+  pctfree 10
+  initrans 2
+  maxtrans 255;

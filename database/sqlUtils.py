@@ -1,13 +1,11 @@
-import configparser
-
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-cfg = configparser.ConfigParser()
-cfg.read("../config/config.ini")
-user = cfg.get("db", "user")
-password = cfg.get("db", "password")
-url = cfg.get("db", "url")
+from utils import configUtils
+
+user = configUtils.get_config_value("db", "user")
+password = configUtils.get_config_value("db", "password")
+url = configUtils.get_config_value("db", "url")
 
 
 def get_sqlalchemy_session():

@@ -1,6 +1,6 @@
 import baostock as bs
 import pandas as pd
-from mapper.pojo import StockBasic
+from mapper.stock import StockBasic
 from database import sqlUtils
 
 
@@ -17,7 +17,7 @@ class DayStockAll(object):
         session = sqlUtils.get_sqlalchemy_session()
         d_len = data.shape[0]
         for i in range(d_len):
-            row = list(data.iloc[i])
+            row = data.iloc[i]
             stock_basic = StockBasic.tranfer(row)
             session.merge(stock_basic)
             session.commit()
