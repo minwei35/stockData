@@ -6,14 +6,7 @@ create table STOCK_INDUSTRY
   code_name               varchar2(50),
   industry                varchar2(20),
   industry_classification varchar2(50)
-)
-tablespace USERS
-  storage
-  (
-    initial 64K
-    minextents 1
-    maxextents unlimited
-  );
+);
 -- Add comments to the table
 comment on table STOCK_INDUSTRY
   is '证券行业分类';
