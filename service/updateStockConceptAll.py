@@ -19,3 +19,4 @@ for index in range(d_len):
     session.merge(stock_industry)
 session.commit()
 session.close()
+bs.logout()

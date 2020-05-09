@@ -78,9 +78,10 @@ if __name__ == '__main__':
         q.put(row)
         before_count = before_count + 1
 
-    p = Pool(processes=os.cpu_count())
+    pool_count = os.cpu_count()
+    p = Pool(processes=pool_count)
     result = []
-    for i in range(os.cpu_count()):
+    for i in range(pool_count):
         result.append(p.apply_async(update_day_stock_by_code, args=(q,)))
     print("等待子进程完成数据插入")
     p.close()
