@@ -1,0 +1,21 @@
+-- Create table
+create table STOCK_CONCEPT
+(
+  code VARCHAR2(100) not null,
+  name VARCHAR2(500)
+);
+-- Add comments to the table
+comment on table STOCK_CONCEPT
+  is '股票概念总表（from 同花顺）';
+-- Add comments to the columns
+comment on column STOCK_CONCEPT.code
+  is '概念板块代码';
+comment on column STOCK_CONCEPT.name
+  is '概念板块名称';
+-- Create/Recreate primary, unique and foreign key constraints
+alter table STOCK_CONCEPT
+  add constraint STOCK_CONCEPT_PK primary key (CODE)
+  using index
+  pctfree 10
+  initrans 2
+  maxtrans 255;
