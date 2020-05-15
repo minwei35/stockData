@@ -136,3 +136,19 @@ class StockKData(Base):
         stock_k_data.isst = tv.get_attr_float(row, 'isST')
         stock_k_data.id = stock_k_data.code + ':' + stock_k_data.trade_date
         return stock_k_data
+
+
+class StockConcept(Base):
+    __tablename__ = 'stock_concept'
+
+    # 概念分类ID
+    code = Column(String, primary_key=True)
+    # 概念分类名称
+    name = Column(String)
+
+    @staticmethod
+    def transfer(row):
+        stock_concept = StockConcept()
+        stock_concept.code = row['gn_code']
+        stock_concept.name = row['gn_name']
+        return stock_concept

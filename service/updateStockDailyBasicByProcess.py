@@ -1,4 +1,3 @@
-import os
 import time
 import traceback
 from multiprocessing import Pool, Manager
@@ -9,8 +8,7 @@ from sqlalchemy import func
 
 from database import sqlUtils
 from mapper.stock import StockBasic, StockDataUpdateRecord, StockKData
-from utils import dateUtils
-from utils import stringUtils
+from utils import dateUtils, configUtils, stringUtils
 
 
 def update_day_stock_by_code(queue):
@@ -61,7 +59,7 @@ def update_day_stock_by_code(queue):
     return count
 
 
-if __name__ == '__main__':
+def update_k_data():
     now = time.time()
     # 创建会话
     mySession = sqlUtils.get_sqlalchemy_session()
@@ -78,7 +76,7 @@ if __name__ == '__main__':
         q.put(row)
         before_count = before_count + 1
 
-    pool_count = os.cpu_count()
+    pool_count = configUtils.get_config_value_int("stock","pool_count")
     p = Pool(processes=pool_count)
     result = []
     for i in range(pool_count):
@@ -100,3 +98,7 @@ if __name__ == '__main__':
     #     error_dir = "stockUpdateError\\" + str(datetime.date.today())
     #     fileutils.mkdirpwd(error_dir)
     #     datas.to_csv(error_dir + "\error_code1.csv", index=False, sep=",")
+
+
+if __name__ == '__main__':
+    update_k_data()
