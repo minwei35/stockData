@@ -1,5 +1,5 @@
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, String, Float
+from sqlalchemy import Column, String, Float, Sequence
 import utils.transferValueUtils as tv
 __author__ = 'Jeremysan'
 
@@ -152,3 +152,21 @@ class StockConcept(Base):
         stock_concept.code = row['gn_code']
         stock_concept.name = row['gn_name']
         return stock_concept
+
+
+class StockConceptDetails(Base):
+    __tablename__ = 'stock_concept_stock'
+
+    # 概念分类ID
+    gn_code = Column(String)
+    # 概念对应股票代码
+    code = Column(String)
+    # 主键ID，由代码和概念分类ID组成
+    id = Column(String, Sequence("STOCK_CONCEPT_DETAILS_SEQ"), primary_key=True)
+
+    @staticmethod
+    def transfer(row):
+        stock_concept_details = StockConceptDetails()
+        stock_concept_details.gn_code = row['concept_code']
+        stock_concept_details.code = row['code']
+        return stock_concept_details

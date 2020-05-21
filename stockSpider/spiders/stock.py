@@ -18,7 +18,6 @@ class StockSpider(SeleniumSpider):
         yield scrapy.Request(url)
 
     def parse(self, response):
-        # page = int(response.url.split("_")[-1].split(".")[0])  # 抓取页码
         item_nodes = response.xpath("//div[@class='cate_items']/a")
         gn_items = []
         for item_node in item_nodes:
@@ -36,15 +35,11 @@ class StockSpider(SeleniumSpider):
                 stock_item['gn_code'] = codes[0]
             gn_items.append(stock_item)
         stockService.update_stock_concept_by_spider(gn_items)
-        son_items = []
-        url = 'http://q.10jqka.com.cn/gn/detail/field/264648/order/desc/page/1/ajax/1/code/{}'
         for index in range(len(gn_items)):
-            yield SeleniumRequest(
-                url=url.format(gn_items[index]['gn_code']),
-                callback=self.gn_page_parse, method="GET",
-                meta={"item": gn_items[index], "son_items": son_items, "page_num": 1, "page_size": -1})
-        # yield scrapy.Request(url=gn_items[0]['gn_url'], callback=self.gn_page_parse, method="GET", meta={"item": gn_items[0], "son_items": son_items})
+            # 循环执行每个概念的关联关系爬虫
+            stockService.update_stock_concept_details_by_spider(self.browser, gn_items[index]['gn_url'], gn_items[index]['gn_code'])
 
+    # 暂时弃用，改成stockService.update_stock_concept_details_by_spider方法进行爬取，待优化
     def gn_page_parse(self, response):
         table_tr = response.xpath('/html/body/table/tbody/tr')
         item = response.meta["item"]
@@ -69,7 +64,6 @@ class StockSpider(SeleniumSpider):
 
     def selenium_func(self, request):
         # 这个方法会在我们的下载器中间件返回Response之前被调用
-
         # 等待页面的ajax加载的带分页的html内容成功后，再继续
         # 这样的话，我们就能在gn_page_parse方法里用选择器筛出正常的table了
         self.waitForXpath(self.browser, '//*[@id="m-page"]')
