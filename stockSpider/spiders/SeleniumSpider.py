@@ -12,6 +12,7 @@ import functools
 import logging
 import scrapy
 from selenium import webdriver
+from utils import seleniumUtils
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -25,7 +26,9 @@ class SeleniumSpider(scrapy.Spider):
 
     各大浏览器webdriver地址可参见：https://docs.seleniumhq.org/download/
     Firefox：https://github.com/mozilla/geckodriver/releases/
+    国内源： http://npm.taobao.org/mirrors/geckodriver/
     Chrome：http://chromedriver.storage.googleapis.com/index.html
+    国内源：http://npm.taobao.org/mirrors/chromedriver/
     """
 
     def parse(self, response):
@@ -41,48 +44,7 @@ class SeleniumSpider(scrapy.Spider):
         super(SeleniumSpider, self).__init__(*args, **kwargs)
 
         # 获取浏览器操控权
-        self.browser = self._get_browser()
-
-    def _get_browser(self):
-        """
-        返回浏览器实例
-        """
-        # 设置selenium与urllib3的logger的日志等级为ERROR
-        # 如果不加这一步，运行爬虫过程中将会产生一大堆无用输出
-        logging.getLogger('selenium').setLevel('ERROR')
-        logging.getLogger('urllib3').setLevel('ERROR')
-
-        # selenium已经放弃了PhantomJS，开始支持firefox与chrome的无头模式
-        return self._use_chrome()
-
-    def _use_chrome(self):
-        """
-        使用selenium操作谷歌浏览器
-        """
-        options = webdriver.ChromeOptions()
-
-        # 下面一系列禁用操作是为了减少selenium的资源耗用，加速scrapy
-
-        profile = {
-            'profile.default_content_setting_values': {
-                # 禁用图片
-                'images': 2,
-                # 禁用浏览器弹窗
-                'notifications': 2
-            }
-        }
-        options.add_experimental_option('prefs', profile)
-
-        # 默认是无头模式，意思是浏览器将会在后台运行，也是为了加速scrapy
-        # 调试的时候可以把SetHeadless设为False，看一下跑着爬虫时候，浏览器在干什么
-        if self.SetHeadless:
-            # 无头模式，无UI
-            options.add_argument('-headless')
-
-        # 禁用gpu加速
-        options.add_argument('--disable-gpu')
-
-        return webdriver.Chrome(options=options)
+        self.browser = seleniumUtils.get_browser()
 
     def selenium_func(self, request):
         """
