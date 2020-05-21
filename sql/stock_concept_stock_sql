@@ -1,0 +1,43 @@
+-- Create table
+create table STOCK_CONCEPT_STOCK
+(
+  gn_code VARCHAR2(10) not null,
+  code    VARCHAR2(10) not null,
+  id      VARCHAR2(20) not null
+);
+-- Add comments to the table
+comment on table STOCK_CONCEPT_STOCK
+  is '概念对应股票表';
+-- Add comments to the columns
+comment on column STOCK_CONCEPT_STOCK.gn_code
+  is '概念代码';
+comment on column STOCK_CONCEPT_STOCK.code
+  is '股票代码';
+comment on column STOCK_CONCEPT_STOCK.id
+  is '主键';
+-- Create/Recreate indexes
+create index STOCK_CONCEPT_STOCK_GN_CODE on STOCK_CONCEPT_STOCK (GN_CODE)
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints
+alter table STOCK_CONCEPT_STOCK
+  add constraint STOCK_CONCEPT_STOCK_PK primary key (ID)
+  using index
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
