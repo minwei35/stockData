@@ -1,11 +1,11 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from utils import configUtils
+from utils.configUtils import config
 
-user = configUtils.get_config_value("db", "user")
-password = configUtils.get_config_value("db", "password")
-url = configUtils.get_config_value("db", "url")
+user = config.db_user_name
+password = config.db_password
+url = config.db_url
 
 
 def get_sqlalchemy_session():

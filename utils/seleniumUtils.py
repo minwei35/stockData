@@ -10,9 +10,10 @@
 """
 import logging
 from selenium import webdriver
+from utils.configUtils import config
 
 # 浏览器是否设置无头模式，仅测试时可以为False
-SetHeadless = True
+SetHeadless = config.headless
 
 # 是否允许浏览器使用cookies
 EnableBrowserCookies = True
@@ -58,4 +59,4 @@ def use_chrome():
     # 禁用gpu加速
     options.add_argument('--disable-gpu')
 
-    return webdriver.Chrome(options=options)
+    return webdriver.Chrome(executable_path="chromedriver.exe", options=options)
