@@ -37,8 +37,16 @@ class Config(object):
         return DATABASES.get("PASSWORD", "")
 
     @LazyProperty
+    def chrome_driver(self):
+        return SELENIUM.get("CHROME_DRIVER", "chromedriver.exe")
+
+    @LazyProperty
     def headless(self):
         return SELENIUM.get("HEADLESS", True)
+
+    @LazyProperty
+    def logger_level(self):
+        return LOGGER.get("LEVEL", logging.INFO)
 
 
 config = Config()

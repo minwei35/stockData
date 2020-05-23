@@ -9,6 +9,8 @@
 @Desc    :  selenium工具类
 """
 import logging
+import platform
+
 from selenium import webdriver
 from utils.configUtils import config
 
@@ -58,5 +60,7 @@ def use_chrome():
 
     # 禁用gpu加速
     options.add_argument('--disable-gpu')
-
+    # linux系统下，需要无沙盒模式跑
+    if platform.system() == 'Linux':
+        options.add_argument('--no-sandbox')
     return webdriver.Chrome(executable_path="chromedriver.exe", options=options)

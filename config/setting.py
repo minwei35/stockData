@@ -8,6 +8,7 @@
 @Version :  V1.0
 @Desc    :  配置项
 """
+import logging
 
 """ 数据库配置 """
 DATABASES = {
@@ -29,5 +30,11 @@ COMMON = {
 
 """ selenium配置项 """
 SELENIUM = {
-    "HEADLESS": True
+    "HEADLESS": True,
+    "CHROME_DRIVER": "chromedriver.exe"
+}
+
+""" 日志配置项 """
+LOGGER = {
+    "LEVEL": logging.DEBUG
 }

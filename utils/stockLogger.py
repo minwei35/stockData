@@ -20,7 +20,7 @@ class StockLogger:
         self.logger.setLevel(logging.DEBUG)
         # 建立一个streamHandler来把日志打在CMD窗口上
         ch = logging.StreamHandler()
-        ch.setLevel(logging.INFO)
+        ch.setLevel(logging.DEBUG)
         # 设置日志格式
         formatter = logging.Formatter('[%(asctime)s] %(filename)s->%(funcName)s line:%(lineno)d [%(levelname)s]%(message)s')
         ch.setFormatter(formatter)
