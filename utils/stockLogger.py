@@ -10,6 +10,7 @@
 """
 
 import logging
+from utils.configUtils import config
 
 
 class StockLogger:
@@ -17,10 +18,10 @@ class StockLogger:
 
     def __init__(self, class_name):
         self.logger = logging.getLogger(class_name)
-        self.logger.setLevel(logging.DEBUG)
+        self.logger.setLevel(config.logger_level)
         # 建立一个streamHandler来把日志打在CMD窗口上
         ch = logging.StreamHandler()
-        ch.setLevel(logging.DEBUG)
+        ch.setLevel(config.logger_level)
         # 设置日志格式
         formatter = logging.Formatter('[%(asctime)s] %(filename)s->%(funcName)s line:%(lineno)d [%(levelname)s]%(message)s')
         ch.setFormatter(formatter)

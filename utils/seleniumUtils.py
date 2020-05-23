@@ -63,4 +63,4 @@ def use_chrome():
     # linux系统下，需要无沙盒模式跑
     if platform.system() == 'Linux':
         options.add_argument('--no-sandbox')
-    return webdriver.Chrome(executable_path="chromedriver.exe", options=options)
+    return webdriver.Chrome(executable_path=config.chrome_driver, options=options)
