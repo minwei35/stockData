@@ -12,9 +12,7 @@
 """ 数据库配置 """
 DATABASES = {
     "TYPE": "ORACLE",
-    "HOST": "192.168.10.80",
-    "PORT": "1521",
-    "SID": "orcl",
+    "URL": "192.168.10.80:1521/orcl",
     "USERNAME": "stock",
     "PASSWORD": "stock"
 }
@@ -27,4 +25,9 @@ COMMON = {
     "MINUTE_K_DATA_TIME": "21",
     # 多进程池的进程数
     "POOL_COUNT": "8"
+}
+
+""" selenium配置项 """
+SELENIUM = {
+    "HEADLESS": True
 }

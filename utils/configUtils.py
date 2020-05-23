@@ -1,26 +1,49 @@
-import configparser
-import os
+#! /usr/local/env python
+# -*- encoding: utf-8 -*-
 
-# os.path.dirname(os.path.dirname(os.path.abspath(__file__))) 获取当前文件所在目录的绝对路径 注意：该路径不包含当前目录
-parentDirPath = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-# 获取配置文件的的绝对路径
-path = parentDirPath+'\\config\\config.ini'
-cfg = configparser.ConfigParser()
-cfg.read(path)
-
-
-def get_config_value(section, key):
-    return cfg.get(section, key)
-
-
-def get_config_value_int(section, key):
-    return cfg.getint(section, key)
+"""
+@File  :  configUtils.py
+@Time  :  2020-05-21 16:37
+@Author  :  jeremesang
+@Version :  V1.0
+@Desc    :  获取配置项
+"""
+from config.setting import *
+from utils.annotation import LazyProperty
 
 
-def get_config_value_float(section, key):
-    return cfg.getfloat(section, key)
+class Config(object):
+    """
+    get config
+    """
+
+    def __init__(self):
+        pass
+
+    @LazyProperty
+    def db_type(self):
+        return DATABASES.get("TYPE", "ORACLE")
+
+    @LazyProperty
+    def db_user_name(self):
+        return DATABASES.get("USERNAME", "")
+
+    @LazyProperty
+    def db_url(self):
+        return DATABASES.get("URL", "")
+
+    @LazyProperty
+    def db_password(self):
+        return DATABASES.get("PASSWORD", "")
+
+    @LazyProperty
+    def headless(self):
+        return SELENIUM.get("HEADLESS", True)
 
 
-def get_config_value_boolean(section, key):
-    return cfg.getboolean(section, key)
+config = Config()
 
+if __name__ == '__main__':
+    print(config.db_type)
+    print(config.db_url)
+    print(config.db_password)
