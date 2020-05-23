@@ -41,7 +41,7 @@ def update_stock_concept_by_spider(concept_list):
 
 def update_stock_concept_details_by_spider(browser, url, gn_code):
     """
-        根据爬虫得来的数据，拼装插入数据库表中(概念对应的股票)
+        根据爬虫得来的数据，运行selenium拼装插入数据库表中(概念对应的股票)
         @param browser: selenium浏览器实例
         @param url: 链接
         @param gn_code: 概念编号
@@ -65,11 +65,13 @@ def update_stock_concept_details_by_spider(browser, url, gn_code):
         response = HtmlResponse(url=url, body=html.encode(), encoding="utf-8")
         table_tr = response.xpath('//*[@id="maincont"]/table/tbody/tr')
         for tr in table_tr:
-            item_loader = StockSpiderItemLoader(item=StockConceptDetailsItem(), selector=tr)
-            item_loader.add_xpath("code", "td[2]/a/text()")
-            stock_item = item_loader.load_item()
-            stock_item['concept_code'] = gn_code
-            concept_items.append(StockConceptDetails.transfer(stock_item))
+            # 判断当前页是否有数据, 如果第一个td是序号数字的话，才会执行
+            if tr.xpath("td/text()").extract_first().strip().isdigit():
+                item_loader = StockSpiderItemLoader(item=StockConceptDetailsItem(), selector=tr)
+                item_loader.add_xpath("code", "td[2]/a/text()")
+                stock_item = item_loader.load_item()
+                stock_item['concept_code'] = gn_code
+                concept_items.append(StockConceptDetails.transfer(stock_item))
         try:
             # 在页面中查找是否还有下一页
             next_page = browser.find_element_by_link_text("下一页")
