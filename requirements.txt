@@ -3,3 +3,4 @@ pandas==1.0.3
 baostock==0.8.8
 scrapy==2.1.0
 selenium==3.141.0
+apscheduler==3.6.3
