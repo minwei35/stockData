@@ -3,7 +3,7 @@ import scrapy
 import re
 
 from stockSpider.items import StockSpiderItem, StockSpiderItemLoader, StockConceptDetailsItem
-from service import stockService
+from service import stockConceptService
 from stockSpider.request.SeleniumRequest import SeleniumRequest
 from stockSpider.spiders.SeleniumSpider import SeleniumSpider
 
@@ -34,10 +34,10 @@ class StockSpider(SeleniumSpider):
             if codes:
                 stock_item['gn_code'] = codes[0]
             gn_items.append(stock_item)
-        stockService.update_stock_concept_by_spider(gn_items)
+        stockConceptService.update_stock_concept_by_spider(gn_items)
         for index in range(len(gn_items)):
             # 循环执行每个概念的关联关系爬虫
-            stockService.update_stock_concept_details_by_spider(self.browser, gn_items[index]['gn_url'], gn_items[index]['gn_code'])
+            stockConceptService.update_stock_concept_details_by_spider(self.browser, gn_items[index]['gn_url'], gn_items[index]['gn_code'])
 
     # 暂时弃用，改成stockService.update_stock_concept_details_by_spider方法进行爬取，待优化
     def gn_page_parse(self, response):

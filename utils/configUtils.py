@@ -48,6 +48,14 @@ class Config(object):
     def logger_level(self):
         return LOGGER.get("LEVEL", logging.INFO)
 
+    @LazyProperty
+    def day_k_data_time(self):
+        return COMMON.get("DAY_K_DATA_TIME", "18")
+
+    @LazyProperty
+    def pool_count(self):
+        return COMMON.get("POOL_COUNT", 8)
+
 
 config = Config()
 
