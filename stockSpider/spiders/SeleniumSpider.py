@@ -35,7 +35,7 @@ class SeleniumSpider(scrapy.Spider):
         pass
 
     # 浏览器是否设置无头模式，仅测试时可以为False
-    SetHeadless = False
+    SetHeadless = True
 
     # 是否允许浏览器使用cookies
     EnableBrowserCookies = True

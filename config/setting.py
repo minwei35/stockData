@@ -9,11 +9,16 @@
 @Desc    :  配置项
 """
 import logging
+import os
+
+CURRENT_PATH = os.path.dirname(os.path.abspath(__file__))
+ROOT_PATH = os.path.join(CURRENT_PATH, os.pardir)
+LOG_PATH = os.path.join(ROOT_PATH, 'log')
 
 """ 数据库配置 """
 DATABASES = {
     "TYPE": "ORACLE",
-    "URL": "192.168.10.80:1521/orcl",
+    "URL": "192.168.30.128:1621/orcl",
     "USERNAME": "stock",
     "PASSWORD": "stock"
 }
@@ -36,5 +41,11 @@ SELENIUM = {
 
 """ 日志配置项 """
 LOGGER = {
-    "LEVEL": logging.DEBUG
+    "LEVEL": logging.DEBUG,
+    "LOG_PATH": LOG_PATH
+}
+
+""" 函数执行顺序 """
+FUNCTION_GETTER = {
+    "test"
 }

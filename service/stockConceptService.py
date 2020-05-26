@@ -19,7 +19,7 @@ from database import sqlUtils
 from stockSpider.items import StockSpiderItemLoader, StockConceptDetailsItem
 from utils.stockLogger import StockLogger
 
-logger = StockLogger('stockConceptService').get_logger()
+logger = StockLogger('stockConceptService')
 
 
 def update_stock_concept_by_spider(concept_list):

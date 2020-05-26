@@ -1,8 +1,8 @@
 from datetime import datetime, date, timedelta
-from utils import configUtils
+from utils.configUtils import config
 
-day_k_data_time = configUtils.get_config_value_int("stock", "day_k_data_time")
-minute_k_data_time = configUtils.get_config_value_int("stock", "minute_k_data_time")
+day_k_data_time = config.day_k_data_time
+minute_k_data_time = config.minute_k_data_time
 
 
 def get_beijing_time():

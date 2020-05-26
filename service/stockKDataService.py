@@ -23,7 +23,7 @@ from utils import dateUtils, stringUtils
 from utils.stockLogger import StockLogger
 from utils.configUtils import config
 
-logger = StockLogger('stockService').get_logger()
+logger = StockLogger('stockService')
 
 
 def update_day_stock_by_code(queue):

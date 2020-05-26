@@ -16,7 +16,7 @@ from database import sqlUtils
 
 from utils.stockLogger import StockLogger
 
-logger = StockLogger('stockService').get_logger()
+logger = StockLogger('stockService')
 
 
 def update_stock_all(self):
