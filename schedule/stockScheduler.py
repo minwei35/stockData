@@ -11,8 +11,8 @@
 from apscheduler.schedulers.blocking import BlockingScheduler
 from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
 
-from composite.stockComposite import StockComposite
-from utils import stockLogger
+from composite.stockComposite import stockRunComposite
+from utils.stockLogger import StockLogger
 from utils.configUtils import config
 
 user = config.db_user_name
@@ -21,19 +21,22 @@ url = config.db_url
 
 
 def k_data_scheduler():
-    # stock_composite = StockComposite("k_data_scheduler")
-    # stock_composite.run()
-    print('进入到k线数据获取模式啦')
+    stockRunComposite.run()
 
 
 def runScheduler():
     # 定义定时器的logger
-    scheduler_log = stockLogger("scheduler_log")
+    scheduler_log = StockLogger("scheduler_log")
     # 使用sqlAlchemy把定时的job持久化到数据库中
-    job_store = SQLAlchemyJobStore(url='oracle://{user}:{password}@{url}?encoding=utf-8&nencoding=utf-8'.format(user=user, password=password, url=url))
-    scheduler = BlockingScheduler(jobstores=job_store, logger=scheduler_log)
+    jobstores = {
+        'stock': SQLAlchemyJobStore(
+            url='oracle://{user}:{password}@{url}?encoding=utf-8&nencoding=utf-8'.format(user=user, password=password,
+                                                                                         url=url))
+    }
+    scheduler = BlockingScheduler(jobstores=jobstores, logger=scheduler_log)
+    # scheduler = BlockingScheduler(logger=scheduler_log)
 
-    scheduler.add_job(k_data_scheduler, 'cron', day_of_week='mon-fri', hour=config.day_k_data_time, name="定时获取K线数据")
+    scheduler.add_job(k_data_scheduler, 'cron', day_of_week='mon-fri', hour='10', name="定时获取K线数据")
     # scheduler.add_job(k_data_scheduler, 'cron', day_of_week='mon-fri', hour=config.day_k_data_time, name="定时获取K线数据")
     # scheduler.add_job(usefulProxyScheduler, 'interval', minutes=1, id="useful_proxy_check", name="useful_proxy定时检查")
     try:
