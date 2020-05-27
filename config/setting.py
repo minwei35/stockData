@@ -18,7 +18,7 @@ LOG_PATH = os.path.join(ROOT_PATH, 'log')
 """ 数据库配置 """
 DATABASES = {
     "TYPE": "ORACLE",
-    "URL": "192.168.30.128:1621/orcl",
+    "URL": "192.168.10.80:1521/orcl",
     "USERNAME": "stock",
     "PASSWORD": "stock"
 }
@@ -36,6 +36,7 @@ COMMON = {
 """ selenium配置项 """
 SELENIUM = {
     "HEADLESS": True,
+    "CONCEPT_URL": 'http://q.10jqka.com.cn/gn/detail/code/',
     "CHROME_DRIVER": "chromedriver.exe"
 }
 

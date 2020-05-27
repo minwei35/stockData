@@ -27,6 +27,7 @@ logger = StockLogger('stockService')
 
 
 def update_day_stock_by_code(queue):
+    record = None
     bs.login()
     today = dateUtils.get_day_k_data_time()
     count = 0

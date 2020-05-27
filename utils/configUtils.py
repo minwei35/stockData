@@ -64,6 +64,10 @@ class Config(object):
     def pool_count(self):
         return COMMON.get("POOL_COUNT", 8)
 
+    @LazyProperty
+    def concept_url(self):
+        return SELENIUM.get("CONCEPT_URL", '')
+
 
 config = Config()
 
