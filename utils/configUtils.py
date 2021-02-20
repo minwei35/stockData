@@ -54,15 +54,15 @@ class Config(object):
 
     @LazyProperty
     def day_k_data_time(self):
-        return COMMON.get("DAY_K_DATA_TIME", "18")
+        return int(COMMON.get("DAY_K_DATA_TIME", 18))
 
     @LazyProperty
     def minute_k_data_time(self):
-        return COMMON.get("MINUTE_K_DATA_TIME", "21")
+        return int(COMMON.get("MINUTE_K_DATA_TIME", 21))
 
     @LazyProperty
     def pool_count(self):
-        return COMMON.get("POOL_COUNT", 8)
+        return int(COMMON.get("POOL_COUNT", 8))
 
     @LazyProperty
     def concept_url(self):
