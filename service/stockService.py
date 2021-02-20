@@ -30,7 +30,7 @@ def update_stock_all():
     # 创建会话
     session = sqlUtils.get_sqlalchemy_session()
     # 默认状态都先设为退市
-    session.query(StockBasic).update({"STATUS": 0})
+    session.query(StockBasic).update({"status": 0})
     session.commit()
     d_len = data.shape[0]
     for i in range(d_len):
