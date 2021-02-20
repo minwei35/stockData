@@ -19,7 +19,7 @@ from utils.stockLogger import StockLogger
 logger = StockLogger('stockService')
 
 
-def update_stock_all(self):
+def update_stock_all():
     bs.login()
     rs = bs.query_stock_basic()
     data_list = []
