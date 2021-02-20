@@ -53,5 +53,5 @@ class StockKDataComposite(Component):
 
 stockRunComposite = StockComposite('股票执行组合')
 stockRunComposite.add(StockBasicComposite('股票基础信息'))
-stockRunComposite.add(StockKDataComposite('股票K线信息'))
+# stockRunComposite.add(StockKDataComposite('股票K线信息'))
 
