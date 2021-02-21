@@ -1,6 +1,10 @@
+from datetime import datetime
+
+from sqlalchemy import Column, String, Float, Sequence, DateTime
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, String, Float, Sequence
+
 import utils.transferValueUtils as tv
+
 __author__ = 'Jeremysan'
 
 Base = declarative_base()
@@ -170,3 +174,49 @@ class StockConceptDetails(Base):
         stock_concept_details.gn_code = row['concept_code']
         stock_concept_details.code = row['code']
         return stock_concept_details
+
+
+class StockCommonDetails(Base):
+    __tablename__ = 'stock_common_info'
+
+    # 概念对应股票代码
+    code = Column(String, primary_key=True)
+    # 概念对应股票代码
+    name = Column(String)
+    # 收盘价
+    close = Column(Float)
+    # 涨跌幅
+    pct_change = Column(Float)
+    # 涨跌
+    price_change = Column(Float)
+    # 换手率
+    turn = Column(Float)
+    # 振幅
+    amplitude = Column(Float)
+    # 成交额
+    amount = Column(Float)
+    # 流通股票
+    circulating_shares = Column(Float)
+    # 流通市值
+    circulating_marking_value = Column(Float)
+    # 市盈率
+    pe = Column(Float)
+    # 更新时间
+    update_time = Column(DateTime, default=datetime.utcnow)
+
+    @staticmethod
+    def transfer(row):
+        stock_common_details = StockCommonDetails()
+        stock_common_details.code = row['code']
+        stock_common_details.name = row['name']
+        stock_common_details.close = row['close']
+        stock_common_details.pct_change = row['pct_change']
+        stock_common_details.price_change = row['price_change']
+        stock_common_details.turn = row['turn']
+        stock_common_details.amplitude = row['amplitude']
+        stock_common_details.amount = tv.get_ths_float_have_chinese(row['amount'])
+        stock_common_details.circulating_shares = tv.get_ths_float_have_chinese(row['circulating_shares'])
+        stock_common_details.circulating_marking_value = tv.get_ths_float_have_chinese(row['circulating_marking_value'])
+        stock_common_details.pe = tv.get_ths_float(row['pe'])
+        stock_common_details.update_time = datetime.now()
+        return stock_common_details

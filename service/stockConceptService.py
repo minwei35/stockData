@@ -12,13 +12,13 @@ import time
 import traceback
 from multiprocessing import Pool, Manager
 
-from domain.stock import StockConcept, StockConceptDetails
+from domain.stock import StockConcept, StockConceptDetails, StockCommonDetails
 
 from scrapy.http import HtmlResponse
 from selenium.common.exceptions import NoSuchElementException
 
 from database import sqlUtils
-from stockSpider.items import StockSpiderItemLoader, StockConceptDetailsItem
+from stockSpider.items import StockSpiderItemLoader, StockConceptDetailsItem, StockCommonDetailsItem
 from utils import seleniumUtils
 from utils.configUtils import config
 from utils.stockLogger import StockLogger
@@ -75,6 +75,22 @@ def update_stock_concept_details_by_spider(browser, url, gn_code):
                 stock_item = item_loader.load_item()
                 stock_item['concept_code'] = gn_code
                 concept_items.append(StockConceptDetails.transfer(stock_item))
+                # 新增记录当前最新的涨跌幅和流通值
+                data_item_loader = StockSpiderItemLoader(item=StockCommonDetailsItem(), selector=tr)
+                data_item_loader.add_xpath("code", "td[2]/a/text()")
+                data_item_loader.add_xpath("name", "td[3]/a/text()")
+                data_item_loader.add_xpath("close", "td[4]/text()")
+                data_item_loader.add_xpath("pct_change", "td[5]/text()")
+                data_item_loader.add_xpath("price_change", "td[6]/text()")
+                data_item_loader.add_xpath("turn", "td[8]/text()")
+                data_item_loader.add_xpath("amplitude", "td[10]/text()")
+                data_item_loader.add_xpath("amount", "td[11]/text()")
+                data_item_loader.add_xpath("circulating_shares", "td[12]/text()")
+                data_item_loader.add_xpath("circulating_marking_value", "td[13]/text()")
+                data_item_loader.add_xpath("pe", "td[14]/text()")
+                data_item = item_loader.load_item()
+                stock_common = StockCommonDetails.transfer(data_item)
+                session.merge(stock_common)
         try:
             # 在页面中查找是否还有下一页
             next_page = browser.find_element_by_link_text("下一页")

@@ -31,3 +31,20 @@ class StockConceptDetailsItem(scrapy.Item):
     concept_code = scrapy.Field()
     code = scrapy.Field()
     pass
+
+
+class StockCommonDetailsItem(scrapy.Item):
+    # define the fields for your item here like:
+    # name = scrapy.Field()
+    code = scrapy.Field()
+    name = scrapy.Field()
+    close = scrapy.Field()
+    pct_change = scrapy.Field()
+    price_change = scrapy.Field()
+    turn = scrapy.Field()
+    amplitude = scrapy.Field()
+    amount = scrapy.Field()
+    circulating_shares = scrapy.Field()
+    circulating_marking_value = scrapy.Field()
+    pe = scrapy.Field()
+    pass
