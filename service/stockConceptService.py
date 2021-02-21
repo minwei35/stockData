@@ -88,7 +88,7 @@ def update_stock_concept_details_by_spider(browser, url, gn_code):
                 data_item_loader.add_xpath("circulating_shares", "td[12]/text()")
                 data_item_loader.add_xpath("circulating_marking_value", "td[13]/text()")
                 data_item_loader.add_xpath("pe", "td[14]/text()")
-                data_item = item_loader.load_item()
+                data_item = data_item_loader.load_item()
                 stock_common = StockCommonDetails.transfer(data_item)
                 session.merge(stock_common)
                 session.commit()
