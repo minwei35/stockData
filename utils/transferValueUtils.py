@@ -54,7 +54,8 @@ def get_ths_float_have_chinese(value):
         if result is not None:
             result = result.replace('亿', '')
             result = float(result)
-            result = result * 1000
+            # 改为用万做单位
+            result = result * 10000
         return result
     except ValueError or TypeError:
         return None
