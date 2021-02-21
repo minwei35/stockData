@@ -91,6 +91,7 @@ def update_stock_concept_details_by_spider(browser, url, gn_code):
                 data_item = item_loader.load_item()
                 stock_common = StockCommonDetails.transfer(data_item)
                 session.merge(stock_common)
+                session.commit()
         try:
             # 在页面中查找是否还有下一页
             next_page = browser.find_element_by_link_text("下一页")
